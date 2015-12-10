@@ -1,18 +1,19 @@
 package memoryGame;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
 /**
- * Created by Evelin.Jogi on 28.11.2015.
+ * Created by Evelin.Jogi on 10.12.2015.
  */
 public class Mang {
-    public Mang() {
-        //seadista mäng
-        Laud laud = new Laud (10); //1. lauale anname pikkuse 10 ühikut ette
-        //Mangija mangija = new Mangija();
+    Stage mang;
 
-        //mängu töös hoidmine
-        while (laud.kasPilteOnAlles()){
-            System.out.println("NEXT ROUND");
-            
-        }
+    public Mang () {
+        //seadista mäng
+        mang = new Stage();
+        new Laud();
+
     }
 }

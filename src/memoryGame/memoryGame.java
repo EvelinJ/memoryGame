@@ -1,32 +1,24 @@
 package memoryGame;
 
 import javafx.application.Application;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
- * Created by Evelin.Jogi on 4.11.2015.
+ * Created by Evelin.Jogi on 10.12.2015.
  */
-public class memoryGame extends Application {
-    Stage mang;
-    GridPane laud;
+public class MemoryGame extends Application{
+    //Stage mang;//klassimuutuja, klassis igalpool kättesaadav
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         new Mang();//käivitame mängu, siia saab hiljem uusi mängijaid luua, uusi Mange lisades
-
-        //seadistaLava();
-        //paigutaPildid();
-        //reageeriKlikile();
-        //pilteOnAlles();
-
     }
 }
 
 /*
 * memoryGame ehk Main
 *    Oskab mängu käivitada
-* Mäng
+* Mäng (Stage)
 *    Oskab mängu seadistada
 *    Oskab mängu töös hoida
 *    Oskab mängu lõpetada
@@ -34,9 +26,9 @@ public class memoryGame extends Application {
 *    Oskab anda tagasisidet, kui pildipaar arvati ära
 *    Oskab anda tagasisidet, kui pildipaari ei arvatud ära
 *    Oskab anda tagasisiet, kui mäng on läbi
-* Laud (kõik tegevused, mis on piltide grupiga seotud)
+* Laud (kõik tegevused, mis on piltide grupiga seotud) GridPane
 *    Teab, et pildid on olemas
-*    Oskab panna pildid lauale
+*    Oskab panna pildid lauale (genereeriPildid)
 *    Oskab hinnata, kas avatud on samasugused pildid (kas peab teadma samasuguste piltide asukohta??)
 *    Oskab kontrollida, kas ära arvamata pilte on veel alles
 *    Oskab mängu seisu näidata
