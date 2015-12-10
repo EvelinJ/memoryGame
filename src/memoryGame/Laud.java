@@ -1,5 +1,6 @@
 package memoryGame;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -18,8 +19,10 @@ public class Laud {
     int pildiKylg = 150;
     int laualTulpasid = 4;
     int laualRidasid = 4;
-    int piksleidLai = pildiKylg*laualTulpasid;
-    int piksleidKorge = pildiKylg*laualRidasid;
+    int piltideVahe = 5;
+    int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
+    int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
+
 
 
     public Laud () {
@@ -40,10 +43,9 @@ public class Laud {
                 Rectangle pilt = new Rectangle(pildiKylg, pildiKylg);
                 pilt.setId("Pilt");
                 pilt.setFill(Color.BLUE);
-                pilt.setStroke(Color.BLACK);
-                TilePane piltideVahe = new TilePane();
-                piltideVahe.setHgap(10);
-                piltideVahe.setVgap(10);
+                pilt.setStroke(Color.BLACK);//seda võib ka mitte teha
+                laud.setHgap(piltideVahe);
+                laud.setVgap(piltideVahe);
                 laud.add(pilt, i, j);
             }
         }
