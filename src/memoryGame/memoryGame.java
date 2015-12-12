@@ -7,7 +7,6 @@ import javafx.stage.Stage;
  * Created by Evelin.Jogi on 10.12.2015.
  */
 public class MemoryGame extends Application{
-    //Stage mang;//klassimuutuja, klassis igalpool kättesaadav
 
     @Override
     public void start(Stage primaryStage) throws Exception {
