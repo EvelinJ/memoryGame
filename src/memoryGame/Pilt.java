@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * Created by Evelin.Jogi on 12.12.2015.
  */
-/*public class Pilt {
+public class Pilt {
     public Pilt() {
 
         reageeriKlikile();
@@ -31,4 +31,8 @@ import javafx.scene.shape.Rectangle;
             }
         });
     }
-}*/
+
+    public void onAlles() {
+
+    }
+}

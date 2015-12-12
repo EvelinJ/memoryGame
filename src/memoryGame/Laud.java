@@ -37,7 +37,7 @@ public class Laud {
 
         genereeriPildid();
         //reageeriKlikile();
-        //new Pilt();
+        new Pilt();
     }
 
     /*private void reageeriKlikile() {
@@ -58,7 +58,8 @@ public class Laud {
     }*/
 
     private boolean pilteAlles() {
-        for (Node pilt : laud.getChildren()) {
+        for (Pilt pilt : laud.getChildren()) {
+            pilt.onAlles();
             if (pilt.getId().equals("pilt1")) {//peaksime tegema nii palju if-e, kui meil erinevaid pilte on
                 return true;//tagastab meetodi tulemuse ehk et pilte on veel alles, kui seda käsku näeb, siis enam edasi ei lähe
             } else if (pilt.getId().equals("pilt2")) {
@@ -72,16 +73,16 @@ public class Laud {
     private void genereeriPildid() {//tsükkel piltide lauale asetamiseks
         for (int i = 0; i < laualRidasid; i++) {
             for (int j = 0; j < laualTulpasid; j++) {
-                //Rectangle pilt = new Rectangle(pildiKylg, pildiKylg);//pildi loomine etteantud mõõtmetega
-                Piltkatse pilt = new Piltkatse(pildiKylg);
+                Rectangle pilt = new Rectangle(pildiKylg, pildiKylg);//pildi loomine etteantud mõõtmetega
+                //Piltkatse pilt = new Piltkatse(pildiKylg);
                 int rand = (int) (Math.random() * 2);//meie peame siia tegema rohkem kui kaks valikut, sest paare on üle kahe, võiks korrutada (*2*laualTulpasid), aga kuidas, siis if tsükkel, teha, et ta nii palju erinevaid pilte annaks?
                 if (rand == 1) {
                     pilt.setId("pilt1");//pilt1 teab, et on pilt1, aga siia võib igale pildile mingi oma nime panna, et neid erinevalt midagi tegema panna
                 } else {
                     pilt.setId("pilt2");
                 }
-                //pilt.setFill(Color.BLUE);
-                //pilt.setStroke(Color.BLACK);//seda võib ka mitte teha
+                pilt.setFill(Color.BLUE);
+                pilt.setStroke(Color.BLACK);//seda võib ka mitte teha
                 laud.setHgap(piltideVahe);//tekitab piltide asetuses vahed, et pildid ei oleks üksteise küljes
                 laud.setVgap(piltideVahe);
                 laud.add(pilt, i, j);
