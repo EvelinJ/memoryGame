@@ -27,7 +27,7 @@ public class Laud {
 
 
     public Laud () {
-        mang = new Stage();//kuidas ma selle mängust kätte saan??
+        mang = new Stage();
         laud = new GridPane();
         Scene manguStseen = new Scene(laud, piksleidLai, piksleidKorge);
         mang.setScene(manguStseen);
@@ -36,10 +36,11 @@ public class Laud {
         mang.setTitle("Memoriin");
 
         genereeriPildid();
-        reageeriKlikile();
+        //reageeriKlikile();
+        //new Pilt();
     }
 
-    private void reageeriKlikile() {
+    /*private void reageeriKlikile() {
         laud.setOnMouseClicked(event -> {//kuidas teha enne kaks klikki, et if lause käivitada?
             Rectangle pilt = (Rectangle) event.getTarget();//event ütleb, kes on see, kelle peale klikati ja kasutame rectangle meetodeid
             String pildiId = pilt.getId();//teeme id1 ja id2 ja siis if lauses kontrollime, kas võrduvad omavahel, selle asemel, et kontrollime kas on Pilt1 või Pilt2?
@@ -52,12 +53,9 @@ public class Laud {
             } else if (pildiId.equals("paar")) {
                 System.out.println("Arvatud pilt!");
             }
-            if (!pilteAlles()) {//kui pilte ei ole alles siis prindib mäng läbi
-                System.out.println("Mäng läbi!");
-                //gameOver();
-            }
+
         });
-    }
+    }*/
 
     private boolean pilteAlles() {
         for (Node pilt : laud.getChildren()) {
@@ -67,21 +65,23 @@ public class Laud {
                 return true;
             }
         }
+        System.out.println("Mäng läbi!");
         return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et pilte on alles, siis tuleb siia
     }
 
     private void genereeriPildid() {//tsükkel piltide lauale asetamiseks
         for (int i = 0; i < laualRidasid; i++) {
             for (int j = 0; j < laualTulpasid; j++) {
-                Rectangle pilt = new Rectangle(pildiKylg, pildiKylg);//pildi loomine etteantud mõõtmetega
+                //Rectangle pilt = new Rectangle(pildiKylg, pildiKylg);//pildi loomine etteantud mõõtmetega
+                Piltkatse pilt = new Piltkatse(pildiKylg);
                 int rand = (int) (Math.random() * 2);//meie peame siia tegema rohkem kui kaks valikut, sest paare on üle kahe, võiks korrutada (*2*laualTulpasid), aga kuidas, siis if tsükkel, teha, et ta nii palju erinevaid pilte annaks?
                 if (rand == 1) {
                     pilt.setId("pilt1");//pilt1 teab, et on pilt1, aga siia võib igale pildile mingi oma nime panna, et neid erinevalt midagi tegema panna
                 } else {
                     pilt.setId("pilt2");
                 }
-                pilt.setFill(Color.BLUE);
-                pilt.setStroke(Color.BLACK);//seda võib ka mitte teha
+                //pilt.setFill(Color.BLUE);
+                //pilt.setStroke(Color.BLACK);//seda võib ka mitte teha
                 laud.setHgap(piltideVahe);//tekitab piltide asetuses vahed, et pildid ei oleks üksteise küljes
                 laud.setVgap(piltideVahe);
                 laud.add(pilt, i, j);
