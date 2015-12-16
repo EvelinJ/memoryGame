@@ -23,6 +23,7 @@ public class Laud {
     int piltideVahe = 5;
     int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
     int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
+    Pilt [] pildistik = new Pilt[laualRidasid*laualTulpasid];
 
 
 
@@ -51,16 +52,16 @@ public class Laud {
     private void genereeriPildid() {//tsükkel piltide lauale asetamiseks
         for (int i = 0; i < laualRidasid; i++) {
             for (int j = 0; j < laualTulpasid; j++) {
-                Pilt pilt = new Pilt(pildiKylg);//pildi loomine etteantud mõõtmetega
+                Pilt pildistik = new Pilt(pildiKylg);//pildi loomine etteantud mõõtmetega
                 int rand = (int) (Math.random() * 2);//meie peame siia tegema rohkem kui kaks valikut, sest paare on üle kahe, võiks korrutada (*2*laualTulpasid), aga kuidas, siis if tsükkel, teha, et ta nii palju erinevaid pilte annaks?
                 if (rand == 1) {
-                    pilt.setId("pilt1");//pilt1 teab, et on pilt1, aga siia võib igale pildile mingi oma nime panna, et neid erinevalt midagi tegema panna
+                    pildistik.setId("pilt1");//pilt1 teab, et on pilt1, aga siia võib igale pildile mingi oma nime panna, et neid erinevalt midagi tegema panna
                 } else {
-                    pilt.setId("pilt2");
+                    pildistik.setId("pilt2");
                 }
                 laud.setHgap(piltideVahe);//tekitab piltide asetuses vahed, et pildid ei oleks üksteise küljes
                 laud.setVgap(piltideVahe);
-                laud.add(pilt, i, j);
+                laud.add(pildistik, i, j);
             }
         }
     }
