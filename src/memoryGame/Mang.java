@@ -13,7 +13,7 @@ public class Mang {
     public Mang () {
         mang = new Stage();
 
-        //loome objektid
+        //loome laua ja mängija objektid
         Laud laud = new Laud();
         Mangija mangija = new Mangija();
 

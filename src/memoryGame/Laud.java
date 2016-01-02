@@ -11,6 +11,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by Evelin.Jogi on 10.12.2015.
  */
@@ -20,6 +23,7 @@ public class Laud {
     int pildiKylg = 150;
     int laualTulpasid = 4;
     int laualRidasid = 4;
+    int paarideArv = (laualRidasid*laualTulpasid)/2;
     int piltideVahe = 5;
     int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
     int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
@@ -39,7 +43,7 @@ public class Laud {
         genereeriPildid();
     }
 
-    public boolean kasOnPilteAlles() {
+    /*public boolean kasOnPilteAlles() {
         for (Pilt pilt : pildistik) {//pildistik on kirjuatamata
             boolean olenAllesPilt = pilt.kasOledAlles();
             if (olenAllesPilt) {
@@ -47,23 +51,27 @@ public class Laud {
             }
         }
         return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et pilte on alles, siis tuleb siia
-    }
+    }*/
 
     private void genereeriPildid() {//tsükkel piltide lauale asetamiseks
-        for (int i = 0; i < laualRidasid; i++) {
-            for (int j = 0; j < laualTulpasid; j++) {
-                Pilt pildistik = new Pilt(pildiKylg);//pildi loomine etteantud mõõtmetega
-                int rand = (int) (Math.random() * 2);//meie peame siia tegema rohkem kui kaks valikut, sest paare on üle kahe, võiks korrutada (*2*laualTulpasid), aga kuidas, siis if tsükkel, teha, et ta nii palju erinevaid pilte annaks?
-                if (rand == 1) {
-                    pildistik.setId("pilt1");//pilt1 teab, et on pilt1, aga siia võib igale pildile mingi oma nime panna, et neid erinevalt midagi tegema panna
-                } else {
-                    pildistik.setId("pilt2");
-                }
-                laud.setHgap(piltideVahe);//tekitab piltide asetuses vahed, et pildid ei oleks üksteise küljes
-                laud.setVgap(piltideVahe);
-                laud.add(pildistik, i, j);
-            }
+        int nr = 1;
+        ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
+        for (int i = 0; i < paarideArv; i++) {
+            pildid.add(new Pilt(String.valueOf(nr)));//Pildi loomine, prindib numbri tektiväärtusteks, sama mis Pilt pilt = new Pilt(String.valueOf(nr));
+            pildid.add(new Pilt(String.valueOf(nr)));
+            nr++;//suurendab numbreid ühe võrra
         }
+
+        Collections.shuffle(pildid);
+        System.out.println(pildid);
+
+        for (int i=0; i < pildid.size(); i++) {
+            Pilt pilt = pildid.get(i);
+            pilt.setTranslateX((pildiKylg+piltideVahe) * (i % laualRidasid));
+            pilt.setTranslateY((pildiKylg+piltideVahe) * (i / laualTulpasid));
+            laud.getChildren().add(pilt);
+        }
+
     }
 
 

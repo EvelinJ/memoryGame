@@ -12,6 +12,6 @@ public class Mangija {
         System.out.println("See ei ole paar!");
     }
     public void gameover() {
-        System.out.println("M‰ng l‰bi!");
+        System.out.println("M√§ng l√§bi!");
     }
 }
