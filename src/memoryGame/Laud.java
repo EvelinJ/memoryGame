@@ -27,6 +27,7 @@ public class Laud {
     private int piltideVahe = 5;
     private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
     private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
+    ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
 
 
     public Laud () {
@@ -56,7 +57,7 @@ public class Laud {
     private void genereeriPildid() {
         //loome piltide paarid ArrayListi
         int nr = 1;
-        ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);//kui see lause tõsta laua klassi külge, siis boolean kasPiltOnAvatud ei näita viga, aga ei tea kas ikka töötab
+        //kui see lause tõsta laua klassi külge, siis boolean kasPiltOnAvatud ei näita viga, aga ei tea kas ikka töötab
         for (int i = 0; i < paarideArv; i++) {
             pildid.add(new Pilt(String.valueOf(nr)));//Pildi loomine, prindib numbri tektiväärtusteks, sama mis Pilt pilt = new Pilt(String.valueOf(nr));
             pildid.add(new Pilt(String.valueOf(nr)));

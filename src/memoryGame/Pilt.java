@@ -26,7 +26,7 @@ public class Pilt extends StackPane {
         kaart.setWidth(pildiKylg);//kaardi laius
         kaart.setHeight(pildiKylg);//kaardi kõrgus
         kaart.setFill(Color.BLUE);//sinist värvi kaart
-        kaart.setStroke(Color.BLACK);//kardi piirjooned
+        kaart.setStroke(Color.BLACK);//kaardi piirjooned
 
         number.setText(value);
         number.setFont(Font.font(90));//numbri suurus pildil
@@ -35,7 +35,7 @@ public class Pilt extends StackPane {
         getChildren().addAll(kaart, number);
 
         //EI TÖÖTA
-        //kutsub välja klikiLugejaga HiireKlikk meetodi
+        //kutsub välja klikiLugejagaHiireKlikk meetodi
         setOnMouseClicked(this::klikiLugejagaHiireKlikk);
         //peidab pildid
         peidaPilt();
@@ -53,9 +53,9 @@ public class Pilt extends StackPane {
 
 
         if (valitud == null) {//tuleb iga pildi avamisega siia, aga edasi else lausega ei lähe, sest vaatab igat pilti eraldi?
-            System.out.println("null");
+            System.out.println(valitud);
             valitud = this;
-            System.out.println("this");
+            System.out.println(valitud);
             avaPilt(() -> {});
         } else {
             avaPilt(() -> {
