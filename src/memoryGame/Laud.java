@@ -20,15 +20,13 @@ import java.util.Collections;
 public class Laud {
     Stage mang;//klassimuutuja, klassis igalpool kättesaadav
     GridPane laud;//klassimuutuja, klassis igalpool kättesaadav
-    int pildiKylg = 150;
-    int laualTulpasid = 4;
-    int laualRidasid = 4;
-    int paarideArv = (laualRidasid*laualTulpasid)/2;
-    int piltideVahe = 5;
-    int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
-    int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
-    Pilt [] pildistik = new Pilt[laualRidasid*laualTulpasid];
-
+    private int pildiKylg = 150;
+    private int laualTulpasid = 4;
+    private int laualRidasid = 4;
+    private int paarideArv = (laualRidasid*laualTulpasid)/2;
+    private int piltideVahe = 5;
+    private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
+    private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
 
 
     public Laud () {
@@ -41,30 +39,35 @@ public class Laud {
         mang.setTitle("Memoriin");
 
         genereeriPildid();
+
     }
 
-    /*public boolean kasOnPilteAlles() {
-        for (Pilt pilt : pildistik) {//pildistik on kirjuatamata
-            boolean olenAllesPilt = pilt.kasOledAlles();
-            if (olenAllesPilt) {
-                return true;//tagastab meetodi tulemuse ehk et pilte on veel alles, kui seda käsku näeb, siis enam edasi ei lähe
+    /*public boolean kasPiltOnAvatud() {
+        for (Pilt pilt : pildid) {
+            boolean üksPiltAvatud = pilt.piltOnAvatud();
+            if (üksPiltAvatud) {
+                return true;//tagastab meetodi tulemuse ehk et pilt on avatud, kui seda käsku näeb, siis enam edasi ei lähe
             }
         }
-        return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et pilte on alles, siis tuleb siia
+        return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et pilt on avatud, siis tuleb siia
     }*/
 
-    private void genereeriPildid() {//tsükkel piltide lauale asetamiseks
+    //meetod, mis loob pildid, segab ja asetab lauale
+    private void genereeriPildid() {
+        //loome piltide paarid ArrayListi
         int nr = 1;
-        ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
+        ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);//kui see lause tõsta laua klassi külge, siis boolean kasPiltOnAvatud ei näita viga, aga ei tea kas ikka töötab
         for (int i = 0; i < paarideArv; i++) {
             pildid.add(new Pilt(String.valueOf(nr)));//Pildi loomine, prindib numbri tektiväärtusteks, sama mis Pilt pilt = new Pilt(String.valueOf(nr));
             pildid.add(new Pilt(String.valueOf(nr)));
-            nr++;//suurendab numbreid ühe võrra
+            nr++;//suurendab pildile tulevaid numbreid ühe võrra
         }
 
+        //segame pildid
         Collections.shuffle(pildid);
         System.out.println(pildid);
 
+        //paneme pildid lauda
         for (int i=0; i < pildid.size(); i++) {
             Pilt pilt = pildid.get(i);
             pilt.setTranslateX((pildiKylg+piltideVahe) * (i % laualRidasid));
@@ -73,6 +76,5 @@ public class Laud {
         }
 
     }
-
 
 }

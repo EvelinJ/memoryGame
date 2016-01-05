@@ -3,6 +3,7 @@ package memoryGame;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,9 +15,12 @@ import javafx.util.Duration;
  * Created by Evelin.Jogi on 12.12.2015.
  */
 public class Pilt extends StackPane {
-    int pildiKylg = 150;
-    Text number = new Text();
-    //private boolean olenAllesPilt = true;
+    private int pildiKylg = 150;
+    private Text number = new Text();
+    private Pilt valitud = null;
+    private int klikiLugeja = 2;
+
+
     public Pilt(String value) {
         Rectangle kaart = new Rectangle();//teeb kaardi
         kaart.setWidth(pildiKylg);//kaardi laius
@@ -30,41 +34,65 @@ public class Pilt extends StackPane {
         setAlignment(Pos.CENTER);//number asetseb keskel
         getChildren().addAll(kaart, number);
 
-        setOnMouseClicked(event -> avaPilt());
+        //EI TÖÖTA
+        //kutsub välja klikiLugejaga HiireKlikk meetodi
+        setOnMouseClicked(this::klikiLugejagaHiireKlikk);
+        //peidab pildid
         peidaPilt();
 
-        /*setOnMouseClicked(event -> {
-            System.out.println("Klikkisin");
-            String pildiId = getId();//teeme id1 ja id2 ja siis if lauses kontrollime, kas võrduvad omavahel, selle asemel, et kontrollime kas on Pilt1 või Pilt2?
-            if (pildiId.equals("pilt1")) {//peame siia kahe erineva pildi võrdluse tekitama ja kaks klikki tuleb teha enne hinnangut. If kui on paar.
-                kaart.setFill(Color.WHITESMOKE);
-                setId("paar");
-            } else if (pildiId.equals("pilt2")) {//if kui ei ole paar
-                kaart.setFill((Color.BLUE));//kui ei olnud paar, siis värvib siniseks tagasi
-                setId(("arvamata"));//panime praegu, et on arvamata, et game overit kontrollida, kui jätame id pilt2, siis ei jõuagi mängu lõppu pilteAlles meetodis
-            } else if (pildiId.equals("paar")) {
-                System.out.println("Juba arvatud pilt!");
-            }
-            if (!kasOledAlles()) {//kui pilte ei ole alles siis prindib mäng läbi
-                System.out.println("Mäng läbi!");
-                //gameOver();
-            }
-        });*/
+
     }
 
-    private void avaPilt() {
+    //EI TÖÖTA
+    public void klikiLugejagaHiireKlikk(MouseEvent mouseEvent) {
+        System.out.println("Klikkisin");
+        if (piltOnAvatud() || klikiLugeja == 0)
+            return;
+
+        klikiLugeja--;
+
+
+        if (valitud == null) {//tuleb iga pildi avamisega siia, aga edasi else lausega ei lähe, sest vaatab igat pilti eraldi?
+            System.out.println("null");
+            valitud = this;
+            System.out.println("this");
+            avaPilt(() -> {});
+        } else {
+            avaPilt(() -> {
+                if (!kasTekkisPaar(valitud)) {
+                    valitud.peidaPilt();
+                    this.peidaPilt();
+                }
+                valitud = null;
+                klikiLugeja = 2;
+            });
+        }
+    }
+
+    //meetod kontrollib, kas tekkis paar, kui tekkis siis on tõene
+    public boolean kasTekkisPaar(Pilt teine) {
+        return number.getText().equals(teine.number.getText());
+    }
+
+
+
+    //meetod, mis kontrollib kas pilt on avatud või mitte, kui on 1, siis on avatud
+    public boolean piltOnAvatud() {
+        return number.getOpacity() == 1;
+    }
+
+    public void avaPilt(Runnable action) {
         FadeTransition peida = new FadeTransition(Duration.seconds(0.5), number);
         peida.setToValue(1);
+        peida.setOnFinished(event -> action.run());
         peida.play();
     }
 
-    private void peidaPilt() {
+    public void peidaPilt() {
         FadeTransition peida = new FadeTransition(Duration.seconds(0.5), number);
         peida.setToValue(0);
         peida.play();
     }
 
-    /*public boolean kasOledAlles() {//EI TÖÖTA, sest ei saa lauda kätte, aga see meetod peaks pigem siin asuma
-                return olenAllesPilt;//tagastab meetodi tulemuse ehk et pilte on veel alles, kui seda käsku näeb, siis enam edasi ei lähe
-            }*/
+
 }

@@ -19,7 +19,7 @@ public class Mang {
 
         //Mängu sisu.
         /*while (laud.kasOnPilteAlles()) {
-            boolean paar = laud.kasTekkisPaar;//kasTekkisPaar meetod on kirjutamata
+            boolean paar = pilt.kasTekkisPaar;
             if (paar) {
                 mangija.paar();
             } else {

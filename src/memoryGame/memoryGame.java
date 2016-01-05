@@ -24,7 +24,7 @@ public class MemoryGame extends Application{
 * Mängija
 *    Oskab anda tagasisidet, kui pildipaar arvati ära
 *    Oskab anda tagasisidet, kui pildipaari ei arvatud ära
-*    Oskab anda tagasisiet, kui mäng on läbi
+*    Oskab anda tagasisidet, kui mäng on läbi
 * Laud (kõik tegevused, mis on piltide grupiga seotud) GridPane
 *    Teab, et pildid on olemas
 *    Oskab panna pildid lauale (genereeriPildid)
