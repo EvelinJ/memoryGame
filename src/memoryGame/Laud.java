@@ -21,13 +21,15 @@ public class Laud {
     Stage mang;//klassimuutuja, klassis igalpool kättesaadav
     GridPane laud;//klassimuutuja, klassis igalpool kättesaadav
     private int pildiKylg = 150;
-    private int laualTulpasid = 4;
     private int laualRidasid = 4;
+    private int laualTulpasid = laualRidasid;
     private int paarideArv = (laualRidasid*laualTulpasid)/2;
     private int piltideVahe = 5;
     private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
     private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
     ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
+    private Pilt valitud = null;
+
 
 
     public Laud () {
@@ -40,21 +42,72 @@ public class Laud {
         mang.setTitle("Memoriin");
 
         genereeriPildid();
+        reageeriKlikile();
 
     }
 
-    /*public boolean kasPiltOnAvatud() {
+    private void reageeriKlikile() {
+        laud.setOnMouseClicked(event -> {
+            if (kasPiltOnAvatud())
+                return;
+
+            if (!kasPiltOnAvatud()) {
+                System.out.println("ühtegi pilti ei ole avatud");
+                avaPilt();
+            } else if (kasPiltOnAvatud()) {
+                System.out.println("vähemalt üks pilt on avatud");
+                avaPilt();
+                if (!kasTekkisPaar()) {
+                    System.out.println("ei tekkinud paari");
+                    sulePilt();
+                    sulePilt();
+                }
+            }
+        });
+        sulePilt();
+    }
+
+
+    //küsib pildi klassist kas tekkis paar
+    public boolean kasTekkisPaar () {
         for (Pilt pilt : pildid) {
-            boolean üksPiltAvatud = pilt.piltOnAvatud();
-            if (üksPiltAvatud) {
+            boolean paar = pilt.tekkisPaar(valitud);
+            if (paar) {
+                System.out.println("jah, on küll paar");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //küsib pildi klassist iga pildi käest kas ta on avatud
+    public boolean kasPiltOnAvatud() {
+        for (Pilt pilt : pildid) {
+            boolean avatud = pilt.piltOnAvatud();
+            if (avatud) {
+                System.out.println("jah, on küll avatud");
                 return true;//tagastab meetodi tulemuse ehk et pilt on avatud, kui seda käsku näeb, siis enam edasi ei lähe
             }
         }
         return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et pilt on avatud, siis tuleb siia
-    }*/
+    }
+
+    //kutsub pildi klassist meetodi avaPilt
+    public void avaPilt () {
+        for (Pilt pilt : pildid) {
+            pilt.avaPilt(() -> {});
+        }
+    }
+
+    //kutsub pildi klaasist meetodi peidaPilt
+    public void sulePilt () {
+        for (Pilt pilt : pildid) {
+            pilt.peidaPilt();
+        }
+    }
 
     //meetod, mis loob pildid, segab ja asetab lauale
-    private void genereeriPildid() {
+    public void genereeriPildid() {
         //loome piltide paarid ArrayListi
         int nr = 1;
         //kui see lause tõsta laua klassi külge, siis boolean kasPiltOnAvatud ei näita viga, aga ei tea kas ikka töötab

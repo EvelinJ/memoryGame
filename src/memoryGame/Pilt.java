@@ -17,8 +17,8 @@ import javafx.util.Duration;
 public class Pilt extends StackPane {
     private int pildiKylg = 150;
     private Text number = new Text();
-    private Pilt valitud = null;
-    private int klikiLugeja = 2;
+    //private Pilt valitud = null;
+    //private int klikiLugeja = 2;
 
 
     public Pilt(String value) {
@@ -34,16 +34,16 @@ public class Pilt extends StackPane {
         setAlignment(Pos.CENTER);//number asetseb keskel
         getChildren().addAll(kaart, number);
 
-        //EI TÖÖTA
+        /*//EI TÖÖTA
         //kutsub välja klikiLugejagaHiireKlikk meetodi
         setOnMouseClicked(this::klikiLugejagaHiireKlikk);
         //peidab pildid
-        peidaPilt();
+        peidaPilt();*/
 
 
     }
 
-    //EI TÖÖTA
+    /*//EI TÖÖTA
     public void klikiLugejagaHiireKlikk(MouseEvent mouseEvent) {
         System.out.println("Klikkisin");
         if (piltOnAvatud() || klikiLugeja == 0)
@@ -59,7 +59,7 @@ public class Pilt extends StackPane {
             avaPilt(() -> {});
         } else {
             avaPilt(() -> {
-                if (!kasTekkisPaar(valitud)) {
+                if (!tekkisPaar(valitud)) {
                     valitud.peidaPilt();
                     this.peidaPilt();
                 }
@@ -67,10 +67,10 @@ public class Pilt extends StackPane {
                 klikiLugeja = 2;
             });
         }
-    }
+    }*/
 
     //meetod kontrollib, kas tekkis paar, kui tekkis siis on tõene
-    public boolean kasTekkisPaar(Pilt teine) {
+    public boolean tekkisPaar(Pilt teine) {
         return number.getText().equals(teine.number.getText());
     }
 
@@ -81,6 +81,7 @@ public class Pilt extends StackPane {
         return number.getOpacity() == 1;
     }
 
+    //meetod, mis avab pildi
     public void avaPilt(Runnable action) {
         FadeTransition peida = new FadeTransition(Duration.seconds(0.5), number);
         peida.setToValue(1);
@@ -88,6 +89,7 @@ public class Pilt extends StackPane {
         peida.play();
     }
 
+    //meetod, mis peidab pildi
     public void peidaPilt() {
         FadeTransition peida = new FadeTransition(Duration.seconds(0.5), number);
         peida.setToValue(0);
