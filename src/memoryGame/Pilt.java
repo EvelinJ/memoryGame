@@ -16,7 +16,7 @@ import javafx.util.Duration;
  */
 public class Pilt extends StackPane {
     private int pildiKylg = 150;
-    private Text number = new Text();
+    public Text number = new Text();
     //private Pilt valitud = null;
     //private int klikiLugeja = 2;
 

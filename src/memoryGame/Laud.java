@@ -1,13 +1,7 @@
 package memoryGame;
 
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -28,7 +22,7 @@ public class Laud {
     private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVahe);//see on sellepärast selline, et mahuks aknasse ära, vaatame mingi parema lahenduse
     private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVahe);
     ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
-    private Pilt valitud = null;
+    //private Pilt valitud = null;
 
 
 
@@ -48,13 +42,22 @@ public class Laud {
 
     private void reageeriKlikile() {
         laud.setOnMouseClicked(event -> {
-            if (kasPiltOnAvatud())
+            Rectangle kaart = (Rectangle) event.getTarget();
+            Pilt pilt = (Pilt) kaart.getParent();
+            pilt.avaPilt(() -> {});
+        });
+        sulePilt();
+    }
+
+    /*private void reageeriKlikile() {
+        laud.setOnMouseClicked(event -> {
+            if (kasVahemaltUksPiltOnAvatud())
                 return;
 
-            if (!kasPiltOnAvatud()) {
+            if (!kasVahemaltUksPiltOnAvatud()) {
                 System.out.println("ühtegi pilti ei ole avatud");
                 avaPilt();
-            } else if (kasPiltOnAvatud()) {
+            } else if (kasVahemaltUksPiltOnAvatud()) {
                 System.out.println("vähemalt üks pilt on avatud");
                 avaPilt();
                 if (!kasTekkisPaar()) {
@@ -65,10 +68,10 @@ public class Laud {
             }
         });
         sulePilt();
-    }
+    }*/
 
 
-    //küsib pildi klassist kas tekkis paar
+    /*//küsib pildi klassist kas tekkis paar
     public boolean kasTekkisPaar () {
         for (Pilt pilt : pildid) {
             boolean paar = pilt.tekkisPaar(valitud);
@@ -78,14 +81,14 @@ public class Laud {
             }
         }
         return false;
-    }
+    }*/
 
     //küsib pildi klassist iga pildi käest kas ta on avatud
-    public boolean kasPiltOnAvatud() {
+    public boolean kasVahemaltUksPiltOnAvatud() {
         for (Pilt pilt : pildid) {
-            boolean avatud = pilt.piltOnAvatud();
-            if (avatud) {
-                System.out.println("jah, on küll avatud");
+            boolean vahemaltUksPiltOnAvatud = pilt.piltOnAvatud();
+            if (vahemaltUksPiltOnAvatud) {
+                System.out.println("jah, on küll vähemalt üks pilt avatud");
                 return true;//tagastab meetodi tulemuse ehk et pilt on avatud, kui seda käsku näeb, siis enam edasi ei lähe
             }
         }
@@ -110,7 +113,7 @@ public class Laud {
     public void genereeriPildid() {
         //loome piltide paarid ArrayListi
         int nr = 1;
-        //kui see lause tõsta laua klassi külge, siis boolean kasPiltOnAvatud ei näita viga, aga ei tea kas ikka töötab
+        //kui see lause tõsta laua klassi külge, siis boolean kasVahemaltUksPiltOnAvatud ei näita viga, aga ei tea kas ikka töötab
         for (int i = 0; i < paarideArv; i++) {
             pildid.add(new Pilt(String.valueOf(nr)));//Pildi loomine, prindib numbri tektiväärtusteks, sama mis Pilt pilt = new Pilt(String.valueOf(nr));
             pildid.add(new Pilt(String.valueOf(nr)));
