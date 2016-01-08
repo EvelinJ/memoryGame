@@ -3,6 +3,7 @@ package memoryGame;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class Laud {
         laud.setOnMouseClicked(event -> {
             Rectangle kaart = (Rectangle) event.getTarget();
             Pilt pilt = (Pilt) kaart.getParent();
+            System.out.println(pilt);
             pilt.avaPilt(() -> {});
         });
         sulePilt();

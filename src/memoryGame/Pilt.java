@@ -30,6 +30,7 @@ public class Pilt extends StackPane {
 
         number.setText(value);
         number.setFont(Font.font(90));//numbri suurus pildil
+        number.setMouseTransparent(true);
 
         setAlignment(Pos.CENTER);//number asetseb keskel
         getChildren().addAll(kaart, number);
