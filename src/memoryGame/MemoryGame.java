@@ -15,6 +15,11 @@ public class MemoryGame extends Application{
 }
 
 /*
+* KASUTATUD ALLIKAD:
+* 1) http://i200.itcollege.ee/
+* 2) loengusalvestused
+* 3) Tutorial https://www.youtube.com/watch?v=QjuytZhQYo8
+*
 * memoryGame ehk Main
 *    Oskab mängu käivitada
 * Mäng (Stage)

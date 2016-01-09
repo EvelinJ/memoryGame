@@ -30,10 +30,10 @@ public class Pilt extends StackPane {
 
         number.setText(value);
         number.setFont(Font.font(90));//numbri suurus pildil
-        number.setMouseTransparent(true);
+        number.setMouseTransparent(true);//ütleme, et numbrile ehk textile ei saa klikkida
 
-        setAlignment(Pos.CENTER);//number asetseb keskel
-        getChildren().addAll(kaart, number);
+        setAlignment(Pos.CENTER);//number asetseb pildi keskel
+        getChildren().addAll(kaart, number); //paneb lapsed ehk kaardi ja numbri vanemale ehk stackpane'ile, kaart on numbri taga, sest on sulgudes eespool
 
         /*//EI TÖÖTA
         //kutsub välja klikiLugejagaHiireKlikk meetodi
@@ -96,6 +96,4 @@ public class Pilt extends StackPane {
         peida.setToValue(0);
         peida.play();
     }
-
-
 }

@@ -38,39 +38,45 @@ public class Laud {
 
         genereeriPildid();
         reageeriKlikile();
-
     }
 
     private void reageeriKlikile() {
         laud.setOnMouseClicked(event -> {
+
+            // event.getTarget teab millisele rectagelile ehk kaardile klikiti
             Rectangle kaart = (Rectangle) event.getTarget();
+
+            //võtame kasutusse rectangeli vanema ehk pildi
             Pilt pilt = (Pilt) kaart.getParent();
             System.out.println(pilt);
-            pilt.avaPilt(() -> {});
+
+            if (!kasVahemaltUksPiltOnAvatud()) {
+                System.out.println("ühtegi pilti ei ole veel avatud");
+                String number1 = pilt.number.getText();
+                pilt.setId("pilt1");//sa oled pilt 1
+                pilt.avaPilt(() -> {});
+                System.out.println(pilt.getId());
+            } else if (kasVahemaltUksPiltOnAvatud()) {
+                System.out.println("vähemalt üks pilt on juba avatud");
+                String number2 = pilt.number.getText();
+                pilt.setId("pilt2"); // sa oled pilt 2
+                System.out.println(pilt.getId());
+                pilt.avaPilt(() -> {
+                    if (pilt.piltOnAvatud()) {
+                        sulePilt();
+                    }
+                });
+            }
+
+            //kui pilt on juba avatud, siis ära tee midagi (ütleb konsoolis, et on juba avatud)
+            if (pilt.piltOnAvatud())
+                System.out.println("see pilt on juba avatud");
+                return;
         });
+        //sule mängu alguses kõik pildid
         sulePilt();
     }
 
-    /*private void reageeriKlikile() {
-        laud.setOnMouseClicked(event -> {
-            if (kasVahemaltUksPiltOnAvatud())
-                return;
-
-            if (!kasVahemaltUksPiltOnAvatud()) {
-                System.out.println("ühtegi pilti ei ole avatud");
-                avaPilt();
-            } else if (kasVahemaltUksPiltOnAvatud()) {
-                System.out.println("vähemalt üks pilt on avatud");
-                avaPilt();
-                if (!kasTekkisPaar()) {
-                    System.out.println("ei tekkinud paari");
-                    sulePilt();
-                    sulePilt();
-                }
-            }
-        });
-        sulePilt();
-    }*/
 
 
     /*//küsib pildi klassist kas tekkis paar
@@ -90,11 +96,10 @@ public class Laud {
         for (Pilt pilt : pildid) {
             boolean vahemaltUksPiltOnAvatud = pilt.piltOnAvatud();
             if (vahemaltUksPiltOnAvatud) {
-                System.out.println("jah, on küll vähemalt üks pilt avatud");
-                return true;//tagastab meetodi tulemuse ehk et pilt on avatud, kui seda käsku näeb, siis enam edasi ei lähe
+                return true;//tagastab meetodi tulemuse ehk et vähemalt üks pilt on avatud, kui seda käsku näeb, siis enam edasi ei lähe
             }
         }
-        return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et pilt on avatud, siis tuleb siia
+        return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et mingi pilt oleks avatud, siis tuleb siia
     }
 
     //kutsub pildi klassist meetodi avaPilt
@@ -113,8 +118,10 @@ public class Laud {
 
     //meetod, mis loob pildid, segab ja asetab lauale
     public void genereeriPildid() {
+
         //loome piltide paarid ArrayListi
         int nr = 1;
+
         //kui see lause tõsta laua klassi külge, siis boolean kasVahemaltUksPiltOnAvatud ei näita viga, aga ei tea kas ikka töötab
         for (int i = 0; i < paarideArv; i++) {
             pildid.add(new Pilt(String.valueOf(nr)));//Pildi loomine, prindib numbri tektiväärtusteks, sama mis Pilt pilt = new Pilt(String.valueOf(nr));
@@ -133,7 +140,5 @@ public class Laud {
             pilt.setTranslateY((pildiKylg+piltideVahe) * (i / laualTulpasid));
             laud.getChildren().add(pilt);
         }
-
     }
-
 }
