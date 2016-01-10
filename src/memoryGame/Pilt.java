@@ -17,9 +17,6 @@ import javafx.util.Duration;
 public class Pilt extends StackPane {
     private int pildiKylg = 150;
     public Text number = new Text();
-    //private Pilt valitud = null;
-    //private int klikiLugeja = 2;
-
 
     public Pilt(String value) {
         Rectangle kaart = new Rectangle();//teeb kaardi
@@ -34,48 +31,7 @@ public class Pilt extends StackPane {
 
         setAlignment(Pos.CENTER);//number asetseb pildi keskel
         getChildren().addAll(kaart, number); //paneb lapsed ehk kaardi ja numbri vanemale ehk stackpane'ile, kaart on numbri taga, sest on sulgudes eespool
-
-        /*//EI TÖÖTA
-        //kutsub välja klikiLugejagaHiireKlikk meetodi
-        setOnMouseClicked(this::klikiLugejagaHiireKlikk);
-        //peidab pildid
-        peidaPilt();*/
-
-
     }
-
-    /*//EI TÖÖTA
-    public void klikiLugejagaHiireKlikk(MouseEvent mouseEvent) {
-        System.out.println("Klikkisin");
-        if (piltOnAvatud() || klikiLugeja == 0)
-            return;
-
-        klikiLugeja--;
-
-
-        if (valitud == null) {//tuleb iga pildi avamisega siia, aga edasi else lausega ei lähe, sest vaatab igat pilti eraldi?
-            System.out.println(valitud);
-            valitud = this;
-            System.out.println(valitud);
-            avaPilt(() -> {});
-        } else {
-            avaPilt(() -> {
-                if (!tekkisPaar(valitud)) {
-                    valitud.peidaPilt();
-                    this.peidaPilt();
-                }
-                valitud = null;
-                klikiLugeja = 2;
-            });
-        }
-    }*/
-
-    //meetod kontrollib, kas tekkis paar, kui tekkis siis on tõene
-    public boolean tekkisPaar(Pilt teine) {
-        return number.getText().equals(teine.number.getText());
-    }
-
-
 
     //meetod, mis kontrollib kas pilt on avatud või mitte, kui on 1, siis on avatud
     public boolean piltOnAvatud() {
@@ -84,16 +40,17 @@ public class Pilt extends StackPane {
 
     //meetod, mis avab pildi
     public void avaPilt(Runnable action) {
-        FadeTransition peida = new FadeTransition(Duration.seconds(0.5), number);
-        peida.setToValue(1);
-        peida.setOnFinished(event -> action.run());
-        peida.play();
+        setId(number.getText());
+        FadeTransition ft = new FadeTransition(Duration.seconds(0.2), number);
+        ft.setToValue(1);
+        ft.setOnFinished(event -> action.run());
+        ft.play();
     }
 
     //meetod, mis peidab pildi
     public void peidaPilt() {
-        FadeTransition peida = new FadeTransition(Duration.seconds(0.5), number);
-        peida.setToValue(0);
-        peida.play();
+        FadeTransition ft = new FadeTransition(Duration.seconds(0.2), number);
+        ft.setToValue(0);
+        ft.play();
     }
 }

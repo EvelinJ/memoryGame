@@ -25,7 +25,7 @@ public class Mang {
             } else {
                 mangija.arvamata();
             }
-        }*/
-        mangija.gameover();
+        }
+        mangija.gameover();*/
     }
 }

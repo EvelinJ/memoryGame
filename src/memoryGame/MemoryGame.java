@@ -16,9 +16,9 @@ public class MemoryGame extends Application{
 
 /*
 * KASUTATUD ALLIKAD:
-* 1) http://i200.itcollege.ee/
-* 2) loengusalvestused
-* 3) Tutorial https://www.youtube.com/watch?v=QjuytZhQYo8
+* 1) http://i200.itcollege.ee, Krister Viirsaar
+* 2) I200 loengusalvestused, Krister Viirsaar
+* 3) JavaFX Game Tutorial: Memory Puzzle, https://www.youtube.com/watch?v=QjuytZhQYo8
 *
 * memoryGame ehk Main
 *    Oskab mängu käivitada
@@ -30,20 +30,18 @@ public class MemoryGame extends Application{
 *    Oskab anda tagasisidet, kui pildipaar arvati ära
 *    Oskab anda tagasisidet, kui pildipaari ei arvatud ära
 *    Oskab anda tagasisidet, kui mäng on läbi
-* Laud (kõik tegevused, mis on piltide grupiga seotud) GridPane
+* Laud (GridPane) //kõik tegevused, mis on piltide grupiga seotud
 *    Teab, et pildid on olemas
 *    Oskab panna pildid lauale (genereeriPildid)
-*    Oskab hinnata, kas avatud on samasugused pildid (kas peab teadma samasuguste piltide asukohta??)
+*    Oskab hinnata, kas avatud on samasugused pildid
 *    Oskab kontrollida, kas ära arvamata pilte on veel alles
-*    Oskab mängu seisu näidata
-* Pilt
-*    Teab oma asukohta
+*    Oskab näidata mängu seisu
+* Pilt (Stackpane ehk parent, mille children'id on kaart ja number)
+*    Teab oma asukohta lauas
 *    Teab, kas ta on arvatud
 *    Oskab laual kohta valida
 *    Oskab saada ära arvatuks
 *    Oskab ennast ümberpöörata
 *    Oskab jääda avatuks, kui on ära arvatud
 *    Oskab öelda, kas on veel arvamata
-*
-*
  */
