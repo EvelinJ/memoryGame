@@ -38,14 +38,25 @@ public class Pilt extends StackPane {
         return number.getOpacity() == 1;
     }
 
-    //meetod, mis avab pildi
-    public void avaPilt(Runnable action) {
-        setId(number.getText());
+    //meetod, mis avab esimese pildi
+    public void avaEsimenePilt(Runnable action) {
+        setId("Esimene");
         FadeTransition ft = new FadeTransition(Duration.seconds(0.2), number);
         ft.setToValue(1);
         ft.setOnFinished(event -> action.run());
         ft.play();
     }
+
+    //meetod, mis avab teise pildi
+    public void avaTeinePilt(Runnable action) {
+        setId("Teine");
+        FadeTransition ft = new FadeTransition(Duration.seconds(0.2), number);
+        ft.setToValue(1);
+        ft.setOnFinished(event -> action.run());
+        ft.play();
+    }
+
+
 
     //meetod, mis peidab pildi
     public void peidaPilt() {

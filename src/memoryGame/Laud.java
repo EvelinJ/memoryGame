@@ -2,6 +2,7 @@ package memoryGame;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -13,20 +14,24 @@ import java.util.Collections;
  */
 public class Laud {
     Stage mang;//klassimuutuja, klassis igalpool kättesaadav
+    StackPane maailm;
     GridPane laud;//klassimuutuja, klassis igalpool kättesaadav
     private int pildiKylg = 150;
     private int laualRidasid = 4;
     private int laualTulpasid = laualRidasid;
     private int paarideArv = (laualRidasid*laualTulpasid)/2;
-    private int piksleidLai = pildiKylg*laualTulpasid;
-    private int piksleidKorge = pildiKylg*laualRidasid;
+    private int piltideVaheLauas = 5;
+    private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVaheLauas);
+    private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVaheLauas);
     ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
 
 
     public Laud () {
+        maailm = new StackPane();
         mang = new Stage();
         laud = new GridPane();
-        Scene manguStseen = new Scene(laud, piksleidLai, piksleidKorge);
+        maailm.getChildren().add(laud);
+        Scene manguStseen = new Scene(maailm, piksleidLai, piksleidKorge);
         mang.setScene(manguStseen);
         mang.show();//ava aken
         mang.setOnCloseRequest(event -> System.exit(0));//akna sulgedes läheb programm kinni
@@ -59,21 +64,23 @@ public class Laud {
             //EI LEIA PAARE, sest ei oska panna võrdlema kahe pildi ID-sid, mis on pildil oleva numbriga sama väärtusega
             if (!kasVahemaltUksPiltOnAvatud()) {
                 System.out.println("ühtegi pilti ei ole veel avatud");
-                pilt1.avaPilt(() -> {
+                pilt1.avaEsimenePilt(() -> {
                     System.out.println(pilt1);
                     System.out.println(pilt1.getId());
                 });
             } else if (kasVahemaltUksPiltOnAvatud()) {
                 System.out.println("vähemalt üks pilt on juba avatud");
-                pilt2.avaPilt(() -> {
+                pilt2.avaTeinePilt(() -> {
                     System.out.println(pilt2);
                     System.out.println(pilt2.getId());
                     suleKoikPildid();
                 });
             }
 
+
+
             //paari testimine, aga Ei tööta! leiab paari kummagi pildi kohta iseendaga.
-            if (pilt1.getId().equals(pilt2.getId())) {
+            if (pilt1.number.getText().equals(pilt2.number.getText())) {
                 System.out.println("Paar!");
             }
 
@@ -81,6 +88,7 @@ public class Laud {
         //sule mängu alguses kõik pildid
         suleKoikPildid();
     }
+
 
     //küsib pildi klassist iga pildi käest kas ta on avatud
     public boolean kasVahemaltUksPiltOnAvatud() {
@@ -93,12 +101,13 @@ public class Laud {
         return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et mingi pilt oleks avatud, siis tuleb siia
     }
 
-    //kutsub pildi klassist meetodi avaPilt
+    /*//kutsub pildi klassist meetodi avaPilt
     public void avaPilt () {
         for (Pilt pilt : pildid) {
-            pilt.avaPilt(() -> {});
+            pilt.avaEsimenePilt(() -> {
+            });
         }
-    }
+    }*/
 
     //kutsub pildi klaasist meetodi peidaPilt
     public void suleKoikPildid() {
@@ -127,8 +136,8 @@ public class Laud {
         //paneme pildid lauda
         for (int i=0; i < pildid.size(); i++) {
             Pilt pilt = pildid.get(i);
-            pilt.setTranslateX((pildiKylg) * (i % laualRidasid));
-            pilt.setTranslateY((pildiKylg) * (i / laualTulpasid));
+            pilt.setTranslateX((pildiKylg+piltideVaheLauas) * (i % laualRidasid));
+            pilt.setTranslateY((pildiKylg+piltideVaheLauas) * (i / laualTulpasid));
             laud.getChildren().add(pilt);
         }
     }
