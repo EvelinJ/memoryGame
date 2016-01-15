@@ -1,6 +1,7 @@
 package memoryGame;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +23,8 @@ public class Pilt extends StackPane {
         Rectangle kaart = new Rectangle();//teeb kaardi
         kaart.setWidth(pildiKylg);//kaardi laius
         kaart.setHeight(pildiKylg);//kaardi kõrgus
+        kaart.setArcWidth(10);//kaardi ümarad nurgad
+        kaart.setArcHeight(10);//kaardi ümarad nurgad
         kaart.setFill(Color.BLUE);//sinist värvi kaart
         kaart.setStroke(Color.BLACK);//kaardi piirjooned
 
@@ -30,7 +33,7 @@ public class Pilt extends StackPane {
         number.setMouseTransparent(true);//ütleme, et numbrile ehk textile ei saa klikkida
 
         setAlignment(Pos.CENTER);//number asetseb pildi keskel
-        getChildren().addAll(kaart, number); //paneb lapsed ehk kaardi ja numbri vanemale ehk stackpane'ile, kaart on numbri taga, sest on sulgudes eespool
+        getChildren().addAll(kaart, number);//paneb lapsed ehk kaardi ja numbri vanemale ehk stackpane'ile, kaart on numbri taga, sest on sulgudes eespool
     }
 
     //meetod, mis kontrollib kas pilt on avatud või mitte, kui on 1, siis on avatud
@@ -55,8 +58,6 @@ public class Pilt extends StackPane {
         ft.setOnFinished(event -> action.run());
         ft.play();
     }
-
-
 
     //meetod, mis peidab pildi
     public void peidaPilt() {

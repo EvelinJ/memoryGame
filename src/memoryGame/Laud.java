@@ -24,6 +24,8 @@ public class Laud {
     private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVaheLauas);
     private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVaheLauas);
     ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
+    public Pilt esimenePilt;
+    public Pilt arvatudPilt;
 
 
     public Laud () {
@@ -52,36 +54,37 @@ public class Laud {
             Pilt pilt = (Pilt) kaart.getParent();
             System.out.println(pilt);
 
-            //määrame piltidele uued nimed, et neid võrrelda
-            Pilt pilt1 = pilt;
-            Pilt pilt2 = pilt;
-
             //kui pilt on juba avatud, siis ära tee midagi (ütleb konsoolis, et on juba avatud)
             if (pilt.piltOnAvatud())
                 return;
 
             //kui ühtegi pili ei ole avatud siis avab esimese, kui üks on juba avatud siis avab teise
-            //EI LEIA PAARE, sest ei oska panna võrdlema kahe pildi ID-sid, mis on pildil oleva numbriga sama väärtusega
+            //EI JÄTA PAARE AVATUKS
             if (!kasVahemaltUksPiltOnAvatud()) {
                 System.out.println("ühtegi pilti ei ole veel avatud");
-                pilt1.avaEsimenePilt(() -> {
-                    System.out.println(pilt1);
-                    System.out.println(pilt1.getId());
+                pilt.avaEsimenePilt(() -> {
+                    esimenePilt = pilt;
+                    System.out.println(esimenePilt);
+                    System.out.println(esimenePilt.getId());
                 });
             } else if (kasVahemaltUksPiltOnAvatud()) {
                 System.out.println("vähemalt üks pilt on juba avatud");
-                pilt2.avaTeinePilt(() -> {
-                    System.out.println(pilt2);
-                    System.out.println(pilt2.getId());
-                    suleKoikPildid();
+                pilt.avaTeinePilt(() -> {
+                    System.out.println(pilt);
+                    System.out.println(pilt.getId());
+                    if (!esimenePilt.number.getText().equals(pilt.number.getText())) {
+                        System.out.println("Ei ole paar!");
+                        esimenePilt.peidaPilt();
+                        pilt.peidaPilt();
+
+                    } else {
+                        System.out.println("Paar!");
+                        esimenePilt.setId("Arvatud");
+                        System.out.println(esimenePilt);
+                        pilt.setId("Arvatud");
+                        System.out.println(pilt);
+                    }
                 });
-            }
-
-
-
-            //paari testimine, aga Ei tööta! leiab paari kummagi pildi kohta iseendaga.
-            if (pilt1.number.getText().equals(pilt2.number.getText())) {
-                System.out.println("Paar!");
             }
 
         });
