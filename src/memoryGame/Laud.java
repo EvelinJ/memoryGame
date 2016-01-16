@@ -1,6 +1,8 @@
 package memoryGame;
 
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -14,7 +16,7 @@ import java.util.Collections;
  */
 public class Laud {
     Stage mang;//klassimuutuja, klassis igalpool kättesaadav
-    StackPane maailm;
+    BorderPane maailm;
     GridPane laud;//klassimuutuja, klassis igalpool kättesaadav
     private int pildiKylg = 150;
     private int laualRidasid = 4;
@@ -29,15 +31,49 @@ public class Laud {
 
 
     public Laud () {
-        maailm = new StackPane();
         mang = new Stage();
+        mang.setTitle("Memoriin");
+        maailm = new BorderPane();
         laud = new GridPane();
         maailm.getChildren().add(laud);
         Scene manguStseen = new Scene(maailm, piksleidLai, piksleidKorge);
+
+        //MENÜÜRIBA
+        MenuBar menuuRiba = new MenuBar();
+        maailm.setTop(menuuRiba);
+
+        //Menüü nupp "Tegevus"
+        Menu tegevused = new Menu("Tegevus");
+
+        //Menüü "tegevus" alategevused
+        MenuItem uusMang = new MenuItem("Uus mäng");
+        MenuItem sulgeMang = new MenuItem("Sulge mäng");
+
+        //Lisa alategevused menuu nupu "Tegevus" alla
+        tegevused.getItems().addAll(uusMang, sulgeMang);
+
+        //Menüü nupp "Spikker"
+        Menu spikker = new Menu("Spikker");
+
+        //Menüü "Spikker" alategevused
+        MenuItem kuidasMangida = new MenuItem("Kuidas mängida?");
+        spikker.getItems().addAll(kuidasMangida);
+
+        //Lisa menüü nupud menüüribale
+        menuuRiba.getMenus().addAll(tegevused, spikker);
+
+        //VALIKUTERIBA
+        ToolBar valikuteriba = new ToolBar();
+        maailm.setBottom(valikuteriba);
+
+        //Valikuteriba nupp "Alusta mängu"
+        Button alustaMangu = new Button("Alusta mängu");
+        valikuteriba.getItems().addAll(alustaMangu);
+
         mang.setScene(manguStseen);
         mang.show();//ava aken
         mang.setOnCloseRequest(event -> System.exit(0));//akna sulgedes läheb programm kinni
-        mang.setTitle("Memoriin");
+
 
         genereeriPildid();
         reageeriKlikile();
