@@ -55,7 +55,17 @@ public class Laud {
         //1.1. alategevus "Uus mäng"
         MenuItem uusMang = new MenuItem("Uus mäng...");
         uusMang.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+M, et alustada uut mängu
-        //1.2. alategevus "Sulge mäng"
+        //1.2. alategevus "Näita lahendust"
+        MenuItem naitaLahendust = new MenuItem("Näita lahendust");
+        naitaLahendust.setAccelerator(new KeyCodeCombination(KeyCode.L, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+L, et avada kõik kaardid
+        //alategevuse "Näita lahendust" meetod
+        naitaLahendust.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                avaKoikPildid();
+            }
+        });
+        //1.3. alategevus "Sulge mäng"
         MenuItem sulgeMang = new MenuItem("Sulge mäng");
         sulgeMang.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+x, et väljuda mängust
         //alategevuse "Sulge mäng" meetod
@@ -67,7 +77,7 @@ public class Laud {
         });
 
         //Lisa alategevused menuu nupu "Tegevus" alla
-        tegevused.getItems().addAll(uusMang, sulgeMang);
+        tegevused.getItems().addAll(uusMang, naitaLahendust, sulgeMang);
 
         //2. Menüü nupp "Spikker"
         Menu spikker = new Menu("_Spikker");
@@ -186,13 +196,12 @@ public class Laud {
         return false;//if käib kõik pildid läbi ja kui ei jõudnud tulemuseni, et mingi pilt oleks avatud, siis tuleb siia
     }
 
-    /*//kutsub pildi klassist meetodi avaPilt
-    public void avaPilt () {
+    //kutsub pildi klassist meetodi avaPilt
+    public void avaKoikPildid () {
         for (Pilt pilt : pildid) {
-            pilt.avaEsimenePilt(() -> {
-            });
+            pilt.avaEsimenePilt(() -> {});
         }
-    }*/
+    }
 
     //kutsub pildi klaasist meetodi peidaPilt
     public void suleKoikPildid() {
