@@ -2,14 +2,13 @@ package memoryGame;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -28,6 +27,7 @@ public class Laud {
     private int laualTulpasid = laualRidasid;
     private int paarideArv = (laualRidasid*laualTulpasid)/2;
     private int piltideVaheLauas = 5;
+    private int nuppudeVahe = 10;
     private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVaheLauas);
     private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVaheLauas);
     ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
@@ -53,7 +53,7 @@ public class Laud {
 
         //Menüü "tegevus" alategevused:
         //1.1. alategevus "Uus mäng"
-        MenuItem uusMang = new MenuItem("Uus mäng");
+        MenuItem uusMang = new MenuItem("Uus mäng...");
         uusMang.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+M, et alustada uut mängu
         //1.2. alategevus "Sulge mäng"
         MenuItem sulgeMang = new MenuItem("Sulge mäng");
@@ -80,7 +80,7 @@ public class Laud {
             @Override
             public void handle(ActionEvent event) {
                 Teade.teade("Mängu õpetus", " \n" +
-                                "Vali hiirega kaardile klikkides kaks kaart. Kui Sul õnnestub avada kaks ühesugust kaarti\n" +
+                                "Vali hiirega kaardile klikkides kaks kaarti. Kui Sul õnnestub avada kaks ühesugust kaarti\n" +
                         "ehk tekib kaardipaar, siis jäävad kaardid mängu lõpuni avatuks.\n" +
                         "Kui kaardid omavahel ei sobi ehk paari ei teki, siis pööratakse need laual uuesti ümber\n" +
                         "ja tuleb valida kaks uut kaarti.\n" +
@@ -97,8 +97,22 @@ public class Laud {
         maailm.setBottom(valikuteriba);
 
         //Valikuteriba nupp "Alusta mängu"
-        Button alustaMangu = new Button("Alusta mängu");
-        valikuteriba.getItems().addAll(alustaMangu);
+        Button alustaManguNupp = new Button("Alusta mängu");
+        Button pausNupp = new Button("Paus");
+
+        HBox keskmisedNupud = new HBox(alustaManguNupp, pausNupp);//Teeme HBoxi ja paneme nupud sisse, et saaks need valikuterea keskele asetada
+        HBox parempoolsedNupud = new HBox();//Teeme HBoxi ja paneme taimeri sisse, et saaks selle valikutereal paremale asetada
+
+        HBox.setHgrow(keskmisedNupud, Priority.ALWAYS);
+        HBox.setHgrow(parempoolsedNupud, Priority.ALWAYS);
+
+        keskmisedNupud.setAlignment(Pos.CENTER);
+        parempoolsedNupud.setAlignment(Pos.CENTER_RIGHT);
+
+        keskmisedNupud.setSpacing(nuppudeVahe);//Teeb keskel asuvatele nuppudele vahed
+        parempoolsedNupud.setSpacing(nuppudeVahe);//Teeb paremal asuvatele nuppudele vahed
+
+        valikuteriba.getItems().addAll(keskmisedNupud);
 
         mang.setScene(manguStseen);
         mang.show();//ava aken
