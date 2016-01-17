@@ -1,7 +1,12 @@
 package memoryGame;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -42,21 +47,46 @@ public class Laud {
         MenuBar menuuRiba = new MenuBar();
         maailm.setTop(menuuRiba);
 
-        //Menüü nupp "Tegevus"
-        Menu tegevused = new Menu("Tegevus");
+        //1. Menüü nupp "Tegevus"
+        Menu tegevused = new Menu("_Tegevus");
+        tegevused.setMnemonicParsing(true);//avab menüü nupu alt+t
 
-        //Menüü "tegevus" alategevused
+        //Menüü "tegevus" alategevused:
+        //1.1. alategevus "Uus mäng"
         MenuItem uusMang = new MenuItem("Uus mäng");
+        uusMang.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+M, et alustada uut mängu
+        //1.2. alategevus "Sulge mäng"
         MenuItem sulgeMang = new MenuItem("Sulge mäng");
+        sulgeMang.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+x, et väljuda mängust
+        //alategevuse "Sulge mäng" meetod
+        sulgeMang.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TeadeTahabValikut.teadeTahabValikut("Sulge mäng", "Kas oled kindel, et soovid mängu sulgeda?");
+            }
+        });
 
         //Lisa alategevused menuu nupu "Tegevus" alla
         tegevused.getItems().addAll(uusMang, sulgeMang);
 
-        //Menüü nupp "Spikker"
-        Menu spikker = new Menu("Spikker");
+        //2. Menüü nupp "Spikker"
+        Menu spikker = new Menu("_Spikker");
+        spikker.setMnemonicParsing(true);//avab menüü nupu alt+s
 
-        //Menüü "Spikker" alategevused
+        //2.1. Menüü "Spikker" alategevused
         MenuItem kuidasMangida = new MenuItem("Kuidas mängida?");
+        kuidasMangida.setAccelerator(new KeyCodeCombination(KeyCode.F1));
+        kuidasMangida.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Teade.teade("Mängu õpetus", " \n" +
+                                "Vali hiirega kaardile klikkides kaks kaart. Kui Sul õnnestub avada kaks ühesugust kaarti\n" +
+                        "ehk tekib kaardipaar, siis jäävad kaardid mängu lõpuni avatuks.\n" +
+                        "Kui kaardid omavahel ei sobi ehk paari ei teki, siis pööratakse need laual uuesti ümber\n" +
+                        "ja tuleb valida kaks uut kaarti.\n" +
+                        "Mäng lõppeb, kui kõik kaardipaarid on laualt üles leitud.");
+            }
+        });
         spikker.getItems().addAll(kuidasMangida);
 
         //Lisa menüü nupud menüüribale
