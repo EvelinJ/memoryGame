@@ -28,7 +28,7 @@ public class Pilt extends StackPane {
         kaart.setArcHeight(10);//kaardi ümarad nurgad
         kaart.setFill(Color.BLUE);//sinist värvi kaart
         kaart.setStroke(Color.DARKBLUE);//kaardi piirjooned
-        kaart.setStrokeWidth(2);//kaardi piirjoone paksus
+        kaart.setStrokeWidth(3);//kaardi piirjoone paksus
 
         number.setText(value);
         number.setFont(Font.font(90));//numbri suurus pildil
