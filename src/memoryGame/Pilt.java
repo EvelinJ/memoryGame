@@ -1,6 +1,7 @@
 package memoryGame;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.StrokeTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -16,17 +17,18 @@ import javafx.util.Duration;
  * Created by Evelin.Jogi on 12.12.2015.
  */
 public class Pilt extends StackPane {
+    public Rectangle kaart = new Rectangle();//teeb kaardi
     private int pildiKylg = 150;
     public Text number = new Text();
 
     public Pilt(String value) {
-        Rectangle kaart = new Rectangle();//teeb kaardi
         kaart.setWidth(pildiKylg);//kaardi laius
         kaart.setHeight(pildiKylg);//kaardi kõrgus
         kaart.setArcWidth(10);//kaardi ümarad nurgad
         kaart.setArcHeight(10);//kaardi ümarad nurgad
         kaart.setFill(Color.BLUE);//sinist värvi kaart
-        kaart.setStroke(Color.BLACK);//kaardi piirjooned
+        kaart.setStroke(Color.DARKBLUE);//kaardi piirjooned
+        kaart.setStrokeWidth(2);//kaardi piirjoone paksus
 
         number.setText(value);
         number.setFont(Font.font(90));//numbri suurus pildil
@@ -39,6 +41,14 @@ public class Pilt extends StackPane {
     //meetod, mis kontrollib kas pilt on avatud või mitte, kui on 1, siis on avatud
     public boolean piltOnAvatud() {
         return number.getOpacity() == 1;
+    }
+
+    //meetod, mis paneb pildi piirjooned vilkuma
+    public void vilgutaPildiPiirjooni () {
+        StrokeTransition vilgu = new StrokeTransition(Duration.seconds(0.5), kaart, Color.DARKBLUE, Color.YELLOW);
+        vilgu.setCycleCount(4);
+        vilgu.setAutoReverse(true);
+        vilgu.play();
     }
 
     //meetod, mis avab esimese pildi

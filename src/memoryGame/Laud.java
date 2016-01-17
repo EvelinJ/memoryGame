@@ -163,6 +163,8 @@ public class Laud {
                         System.out.println(esimenePilt);
                         pilt.setId("Arvatud");
                         System.out.println(pilt);
+                        esimenePilt.vilgutaPildiPiirjooni();
+                        pilt.vilgutaPildiPiirjooni();
                     }
                 });
             }
