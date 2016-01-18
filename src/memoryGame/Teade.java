@@ -22,7 +22,7 @@ public class Teade {
         Label sisu = new Label();
         sisu.setText(sisuTekst);
 
-        Button sainAruNupp = new Button("Alusta Mängu");
+        Button sainAruNupp = new Button("Sain aru");
         sainAruNupp.setOnAction(event -> teade.close());
 
         VBox teateKujundus = new VBox(10);

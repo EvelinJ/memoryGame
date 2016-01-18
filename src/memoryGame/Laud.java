@@ -55,6 +55,13 @@ public class Laud {
         //1.1. alategevus "Uus mäng"
         MenuItem uusMang = new MenuItem("Uus mäng...");
         uusMang.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+M, et alustada uut mängu
+        //alategevus "Uus mäng" meetod
+        uusMang.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                new Mang();
+            }
+        });
         //1.2. alategevus "Näita lahendust"
         MenuItem naitaLahendust = new MenuItem("Näita lahendust");
         naitaLahendust.setAccelerator(new KeyCodeCombination(KeyCode.L, KeyCombination.SHORTCUT_DOWN));//kiirklahvid Ctrl+L, et avada kõik kaardid
