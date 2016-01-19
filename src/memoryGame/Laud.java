@@ -31,8 +31,8 @@ public class Laud {
     private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVaheLauas);
     private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVaheLauas);
     ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
-    public Pilt esimenePilt;
-    public Pilt arvatudPilt;
+    public Pilt pilt;
+    public Pilt esimenePilt = null;
 
 
     public Laud () {
@@ -148,49 +148,48 @@ public class Laud {
             Rectangle kaart = (Rectangle) event.getTarget();
 
             //võtame kasutusse rectangeli vanema ehk pildi
-            Pilt pilt = (Pilt) kaart.getParent();
+            pilt = (Pilt) kaart.getParent();
             System.out.println(pilt);
 
             //kui pilt on juba avatud, siis ära tee midagi (ütleb konsoolis, et on juba avatud)
             if (pilt.piltOnAvatud())
                 return;
 
-            //kui ühtegi pili ei ole avatud siis avab esimese, kui üks on juba avatud siis avab teise
-            //EI JÄTA PAARE AVATUKS
-            if (!kasVahemaltUksPiltOnAvatud()) {
-                System.out.println("ühtegi pilti ei ole veel avatud");
+            //kui esimenePilt ei ole avatud siis avab esimese, kui esimene on juba avatud, siis avab teise ja kontrollib paari tekkimist
+            if (esimenePilt == null) {
                 pilt.avaEsimenePilt(() -> {
                     esimenePilt = pilt;
                     System.out.println(esimenePilt);
-                    System.out.println(esimenePilt.getId());
                 });
-            } else if (kasVahemaltUksPiltOnAvatud()) {
-                System.out.println("vähemalt üks pilt on juba avatud");
+            } else if (esimenePilt.piltOnAvatud()) {
                 pilt.avaTeinePilt(() -> {
                     System.out.println(pilt);
-                    System.out.println(pilt.getId());
-                    if (!esimenePilt.number.getText().equals(pilt.number.getText())) {
-                        System.out.println("Ei ole paar!");
-                        esimenePilt.peidaPilt();
-                        pilt.peidaPilt();
-
-                    } else {
-                        System.out.println("Paar!");
-                        esimenePilt.setId("Arvatud");
-                        System.out.println(esimenePilt);
-                        pilt.setId("Arvatud");
-                        System.out.println(pilt);
-                        esimenePilt.vilgutaPildiPiirjooni();
-                        pilt.vilgutaPildiPiirjooni();
-                    }
+                    kasTekkisPaar();
                 });
             }
-
         });
         //sule mängu alguses kõik pildid
         suleKoikPildid();
     }
 
+
+    //kontrollib kas tekkis paar
+    public void kasTekkisPaar () {
+        if (esimenePilt.number.getText().equals(pilt.number.getText())) {
+            System.out.println("Paar!");
+            esimenePilt.setId("Arvatud");
+            pilt.setId("Arvatud");
+            System.out.println(esimenePilt.getId());
+            System.out.println(pilt.getId());
+            esimenePilt.vilgutaPildiPiirjooni();
+            pilt.vilgutaPildiPiirjooni();
+        } else {
+            System.out.println("Ei ole paar!");
+            esimenePilt.peidaPilt();
+            pilt.peidaPilt();
+            esimenePilt = null;
+        }
+    }
 
     //küsib pildi klassist iga pildi käest kas ta on avatud
     public boolean kasVahemaltUksPiltOnAvatud() {
