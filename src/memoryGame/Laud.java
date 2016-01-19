@@ -187,8 +187,8 @@ public class Laud {
             System.out.println("Ei ole paar!");
             esimenePilt.peidaPilt();
             pilt.peidaPilt();
-            esimenePilt = null;
         }
+        esimenePilt = null;
     }
 
     //küsib pildi klassist iga pildi käest kas ta on avatud
