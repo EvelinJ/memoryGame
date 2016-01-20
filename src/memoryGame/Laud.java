@@ -164,7 +164,11 @@ public class Laud {
             } else if (esimenePilt.piltOnAvatud()) {
                 pilt.avaTeinePilt(() -> {
                     System.out.println(pilt);
-                    kasTekkisPaar();
+                    if (!kasTekkisPaar()) {
+                        esimenePilt.peidaPilt();
+                        pilt.peidaPilt();
+                    }
+                    esimenePilt=null;
                 });
             }
         });
@@ -173,7 +177,28 @@ public class Laud {
     }
 
 
-    //kontrollib kas tekkis paar
+    public boolean kasOnPilteArvamata () {
+        for (Pilt pilt : pildid) {
+            boolean pilteOnArvamata = pilt.kasOledArvamataPilt();
+            if (pilteOnArvamata) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean kasTekkisPaar () {
+        if (esimenePilt.number.getText().equals(pilt.number.getText())) {
+            esimenePilt.vilgutaPildiPiirjooni();
+            pilt.vilgutaPildiPiirjooni();
+            System.out.println("boolean töötab, paar");
+            return true;
+        }
+        System.out.println("boolean ei leidnud paari");
+        return false;
+    }
+
+    /*//kontrollib kas tekkis paar
     public void kasTekkisPaar () {
         if (esimenePilt.number.getText().equals(pilt.number.getText())) {
             System.out.println("Paar!");
@@ -189,7 +214,7 @@ public class Laud {
             pilt.peidaPilt();
         }
         esimenePilt = null;
-    }
+    }*/
 
     //küsib pildi klassist iga pildi käest kas ta on avatud
     public boolean kasVahemaltUksPiltOnAvatud() {

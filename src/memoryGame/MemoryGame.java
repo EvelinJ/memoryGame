@@ -12,6 +12,10 @@ public class MemoryGame extends Application{
     public void start(Stage primaryStage) throws Exception {
         new Mang();//käivitame mängu, siia saab hiljem uusi mängijaid luua, uusi Mange lisades
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
 
 /*

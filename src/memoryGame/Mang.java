@@ -18,14 +18,14 @@ public class Mang {
         Mangija mangija = new Mangija();
 
         //Mängu sisu.
-        /*while (laud.kasOnPilteAlles()) {
-            boolean paar = pilt.kasTekkisPaar;
+        while (laud.kasOnPilteArvamata()) {
+            boolean paar = laud.kasTekkisPaar();
             if (paar) {
                 mangija.paar();
             } else {
                 mangija.arvamata();
             }
         }
-        mangija.gameover();*/
+        mangija.gameover();
     }
 }
