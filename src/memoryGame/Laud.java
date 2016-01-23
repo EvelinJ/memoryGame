@@ -5,11 +5,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -26,13 +29,16 @@ public class Laud {
     private int laualRidasid = 4;
     private int laualTulpasid = laualRidasid;
     private int paarideArv = (laualRidasid*laualTulpasid)/2;
+    private int leitudPaarideLugeja = 0;
     private int piltideVaheLauas = 5;
     private int nuppudeVahe = 10;
     private int piksleidLai = pildiKylg*laualTulpasid+(laualTulpasid*piltideVaheLauas);
-    private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVaheLauas);
+    private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVaheLauas)+40;
+
     ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
     public Pilt pilt;
     public Pilt esimenePilt = null;
+
 
 
     public Laud () {
@@ -115,7 +121,13 @@ public class Laud {
 
         //Valikuteriba nupp "Alusta mängu"
         Button alustaManguNupp = new Button("Alusta mängu");
+        alustaManguNupp.setOnMouseEntered(event1 -> alustaManguNupp.setEffect(new DropShadow()));
+        alustaManguNupp.setOnMouseExited(event1 -> alustaManguNupp.setEffect(null));
+
+        //Valikuteriba nupp "Paus"
         Button pausNupp = new Button("Paus");
+        pausNupp.setOnMouseEntered(event1 -> pausNupp.setEffect(new DropShadow()));
+        pausNupp.setOnMouseExited(event1 -> pausNupp.setEffect(null));
 
         HBox keskmisedNupud = new HBox(alustaManguNupp, pausNupp);//Teeme HBoxi ja paneme nupud sisse, et saaks need valikuterea keskele asetada
         HBox parempoolsedNupud = new HBox();//Teeme HBoxi ja paneme taimeri sisse, et saaks selle valikutereal paremale asetada
@@ -176,25 +188,37 @@ public class Laud {
         suleKoikPildid();
     }
 
-
-    public boolean kasOnPilteArvamata () {
-        for (Pilt pilt : pildid) {
-            boolean pilteOnArvamata = pilt.kasOledArvamataPilt();
-            if (pilteOnArvamata) {
-                return true;
-            }
-        }
-        return false;
+    //kui kõik paarid on leitud, siis mäng läbi
+    public void gameover() {
+        Label mangLabiTekst = new Label("Tubli, leidsid kõik paarid!\n" + "MÄNG LÄBI!");
+        mangLabiTekst.setFont(new Font(50));
+        mangLabiTekst.setTextFill(Color.ORANGE);
+        mangLabiTekst.setAlignment(Pos.CENTER);
+        maailm.setCenter(mangLabiTekst);
     }
 
+    //kontrollib kas kõik paarid on leitud
+    public boolean kasKoikPaaridOnLeitud () {
+        return leitudPaarideLugeja == paarideArv;
+    }
+
+    //kontrollib kas tekkis paar ja tegutseb vastavalt
     public boolean kasTekkisPaar () {
         if (esimenePilt.number.getText().equals(pilt.number.getText())) {
+            System.out.println("Leidsid paari!");
+            esimenePilt.setId("Arvatud");
+            pilt.setId("Arvatud");
             esimenePilt.vilgutaPildiPiirjooni();
             pilt.vilgutaPildiPiirjooni();
-            System.out.println("boolean töötab, paar");
+            leitudPaarideLugeja++;
+            if (kasKoikPaaridOnLeitud()) {
+                gameover();
+            }
+            System.out.println(kasKoikPaaridOnLeitud());
+            System.out.println(leitudPaarideLugeja);
             return true;
         }
-        System.out.println("boolean ei leidnud paari");
+        System.out.println("See ei ole paar!");
         return false;
     }
 

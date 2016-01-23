@@ -18,7 +18,7 @@ public class Mang {
         Mangija mangija = new Mangija();
 
         //Mängu sisu.
-        while (laud.kasOnPilteArvamata()) {
+        while (!laud.kasKoikPaaridOnLeitud()) {
             boolean paar = laud.kasTekkisPaar();
             if (paar) {
                 mangija.paar();

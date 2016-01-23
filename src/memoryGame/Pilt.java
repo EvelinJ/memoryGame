@@ -20,7 +20,6 @@ public class Pilt extends StackPane {
     public Rectangle kaart = new Rectangle();//teeb kaardi
     private int pildiKylg = 150;
     public Text number = new Text();
-    private boolean arvamataPilt = true;
 
     public Pilt(String value) {
         kaart.setWidth(pildiKylg);//kaardi laius
@@ -37,10 +36,6 @@ public class Pilt extends StackPane {
 
         setAlignment(Pos.CENTER);//number asetseb pildi keskel
         getChildren().addAll(kaart, number);//paneb lapsed ehk kaardi ja numbri vanemale ehk stackpane'ile, kaart on numbri taga, sest on sulgudes eespool
-    }
-
-    public boolean kasOledArvamataPilt () {
-        return arvamataPilt;
     }
 
     //meetod, mis kontrollib kas pilt on avatud või mitte, kui on 1, siis on avatud
