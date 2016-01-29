@@ -17,7 +17,7 @@ import javafx.util.Duration;
  * Created by Evelin.Jogi on 12.12.2015.
  */
 public class Pilt extends StackPane {
-    public Rectangle kaart = new Rectangle();//teeb kaardi
+    private Rectangle kaart = new Rectangle();//teeb kaardi
     private int pildiKylg = 150;
     public Text number = new Text();
 

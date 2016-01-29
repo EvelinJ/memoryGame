@@ -41,8 +41,8 @@ public class Laud {
     private int piksleidKorge = pildiKylg*laualRidasid+(laualRidasid*piltideVaheLauas)+40;
 
     private ArrayList<Pilt> pildid = new ArrayList<>(paarideArv);
-    public Pilt pilt;
-    public Pilt esimenePilt = null;
+    private Pilt pilt;
+    private Pilt esimenePilt = null;
 
     private ToolBar valikuteriba;
     private HBox keskmisedNupud;
@@ -50,7 +50,6 @@ public class Laud {
     private int nuppudeVahe = 10;
 
     private Timeline animatsioon;
-    private Long alustaAeg;
     private int sekundid = 0;
     private Text taimeriTekst = new Text(sekundid + "");
 
@@ -140,7 +139,7 @@ public class Laud {
         alustaUutManguNupp.setOnAction(event2 -> new Mang());
 
         //Valikuteriba nupp "Sule mäng"
-        Button suleMangNupp = new Button("Sule mäng");
+        Button suleMangNupp = new Button("Sulge mäng");
         suleMangNupp.setOnMouseEntered(event1 -> suleMangNupp.setEffect(new DropShadow()));
         suleMangNupp.setOnMouseExited(event1 -> suleMangNupp.setEffect(null));
         suleMangNupp.setOnAction(event1 -> System.exit(0));
@@ -178,7 +177,6 @@ public class Laud {
 
         genereeriPildid();
         reageeriKlikile();
-        alustaAeg = System.currentTimeMillis();
     }
 
     //klikile reageerimise meetod
@@ -191,7 +189,6 @@ public class Laud {
 
             //võtame kasutusse rectangeli vanema ehk pildi
             pilt = (Pilt) kaart.getParent();
-            System.out.println(pilt);
 
             //kui pilt on juba avatud, siis ära tee midagi (ütleb konsoolis, et on juba avatud)
             if (pilt.piltOnAvatud())
@@ -206,11 +203,7 @@ public class Laud {
             } else if (esimenePilt.piltOnAvatud()) {
                 pilt.avaTeinePilt(() -> {
                     System.out.println(pilt);
-                    if (!kasTekkisPaar()) {
-                        esimenePilt.peidaPilt();
-                        pilt.peidaPilt();
-                    }
-                    esimenePilt = null;
+                    kasTekkisPaar();
                 });
             }
         });
@@ -226,7 +219,6 @@ public class Laud {
         mangLabiTekst.setTextFill(Color.ORANGE);
         mangLabiTekst.setAlignment(Pos.CENTER);
         maailm.setCenter(mangLabiTekst);
-        animatsioon.stop();
         valikuteriba.getItems().remove(parempoolsedNupud);
         valikuteriba.getItems().addAll(keskmisedNupud);
         valikuteriba.getItems().addAll(parempoolsedNupud);
@@ -239,7 +231,7 @@ public class Laud {
     }
 
     //kontrollib kas tekkis paar ja tegutseb vastavalt
-    public boolean kasTekkisPaar () {
+    public void kasTekkisPaar () {
         if (esimenePilt.number.getText().equals(pilt.number.getText())) {
             System.out.println("Leidsid paari!");
             esimenePilt.setId("Arvatud");
@@ -248,33 +240,23 @@ public class Laud {
             pilt.vilgutaPildiPiirjooni();
             leitudPaarideLugeja++;
             if (kasKoikPaaridOnLeitud()) {
-                gameover();
+                animatsioon.stop();
+                Timeline ootaManguLopuTeavitusega = new Timeline(
+                        new KeyFrame(Duration.seconds(2), event -> {
+                            gameover();
+                        })
+                );
+                ootaManguLopuTeavitusega.play();
             }
             System.out.println(kasKoikPaaridOnLeitud());
             System.out.println(leitudPaarideLugeja);
-            return true;
-        }
-        System.out.println("See ei ole paar!");
-        return false;
-    }
-
-    /*//kontrollib kas tekkis paar
-    public void kasTekkisPaar () {
-        if (esimenePilt.number.getText().equals(pilt.number.getText())) {
-            System.out.println("Paar!");
-            esimenePilt.setId("Arvatud");
-            pilt.setId("Arvatud");
-            System.out.println(esimenePilt.getId());
-            System.out.println(pilt.getId());
-            esimenePilt.vilgutaPildiPiirjooni();
-            pilt.vilgutaPildiPiirjooni();
         } else {
-            System.out.println("Ei ole paar!");
+            System.out.println("See ei ole paar!");
             esimenePilt.peidaPilt();
             pilt.peidaPilt();
         }
         esimenePilt = null;
-    }*/
+    }
 
     //küsib pildi klassist iga pildi käest kas ta on avatud
     public boolean kasVahemaltUksPiltOnAvatud() {
