@@ -277,7 +277,7 @@ public class Laud {
     //kutsub pildi klaasist meetodi peidaPilt
     public void suleKoikPildid() {
         for (Pilt pilt : pildid) {
-            pilt.peidaPilt();
+            pilt.peidaPiltKuiKoikKorraga();
         }
     }
 

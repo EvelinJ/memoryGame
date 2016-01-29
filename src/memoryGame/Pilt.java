@@ -75,4 +75,11 @@ public class Pilt extends StackPane {
         ft.setToValue(0);
         ft.play();
     }
+
+    //meetod, mis peidab pildi, kui peidetakse kõiki pilte
+    public void peidaPiltKuiKoikKorraga() {
+        FadeTransition ft = new FadeTransition(Duration.millis(0.1), number);
+        ft.setToValue(0);
+        ft.play();
+    }
 }
