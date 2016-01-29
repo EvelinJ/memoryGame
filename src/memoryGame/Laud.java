@@ -213,7 +213,7 @@ public class Laud {
 
     //kui kõik paarid on leitud, siis mäng läbi
     public void gameover() {
-        Label mangLabiTekst = new Label("Tubli, leidsid kõik paarid!\n" + "MÄNG LÄBI!");
+        Label mangLabiTekst = new Label("Tubli, leidsid kõik paarid!\n" + "MÄNG LÄBI!\n" + "Mängu aeg: " + sekundid + " sekundit");
         mangLabiTekst.setTextAlignment(TextAlignment.CENTER);
         mangLabiTekst.setFont(new Font(50));
         mangLabiTekst.setTextFill(Color.ORANGE);
@@ -221,8 +221,6 @@ public class Laud {
         maailm.setCenter(mangLabiTekst);
         valikuteriba.getItems().remove(parempoolsedNupud);
         valikuteriba.getItems().addAll(keskmisedNupud);
-        valikuteriba.getItems().addAll(parempoolsedNupud);
-        //valikuteriba.getItems().remove(parempoolsedNupud);
     }
 
     //kontrollib kas kõik paarid on leitud
